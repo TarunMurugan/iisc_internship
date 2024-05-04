@@ -1,0 +1,23 @@
+<launch>
+    <include file="$(find volta_swarm)/launch/bot.launch" >
+        <arg name="bot_index" value="1"/>
+        <arg name="xpos" value="1"/>
+        <arg name="ypos" value="0" />
+    </include>
+    <include file="$(find volta_swarm)/launch/bot.launch" >
+        <arg name="bot_index" value="2"/>
+        <arg name="xpos" value="-1"/>
+        <arg name="ypos" value="-0" />
+    </include>
+    <include file="$(find volta_swarm)/launch/bot.launch" >
+        <arg name="bot_index" value="3"/>
+        <arg name="xpos" value="-0"/>
+        <arg name="ypos" value="-1" />
+    </include>
+    <include file="$(find volta_swarm)/launch/bot.launch" >
+        <arg name="bot_index" value="4"/>
+        <arg name="xpos" value="0"/>
+        <arg name="ypos" value="1" />
+    </include>
+
+</launch>

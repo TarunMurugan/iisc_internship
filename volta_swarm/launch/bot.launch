@@ -1,0 +1,43 @@
+<launch>
+    <arg name="model" default="$(find volta_description)/urdf/volta.xacro"/>
+
+    <arg name="bot_index" default="0"/>
+    <arg name="xpos" default="0"/>
+    <arg name="ypos" default="0" />
+    <arg name="model_name" value="volta_$(arg bot_index)" />
+   
+
+
+    <group ns="volta_$(arg bot_index)">
+
+
+
+    
+        <param name="robot_description" command="$(find xacro)/xacro --inorder 
+                                $(arg model)
+                                robot_namespace:=$(arg model_name)
+                                tf_pre:=$(arg model_name)"/>
+    
+        <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+            args="-urdf -model $(arg model_name) -param robot_description -x $(arg xpos) -y $(arg ypos) -z 0 -R 0 -P 0 -Y 0">
+        </node>
+        <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" >
+        <param name="tf_prefix" value="$(arg model_name)"/>
+        </node>
+        <node pkg="tf" type="static_transform_publisher" name="link1_broadcaster" args="$(arg xpos) $(arg ypos) 0 0 0 0 1 world $(arg model_name)/odom 20" />
+        <!-- <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" >
+        <param name="tf_prefix" value="$(arg model_name)"/>
+        </node> -->
+    
+        <include file="$(find volta_control)/launch/control.launch" >
+        <arg name="base_id" value="$(arg model_name)/base_link"/>
+        <arg name="odom_id" value="$(arg model_name)/odom"/>
+    </include>
+    
+        <include file="$(find volta_localization)/launch/localization.launch" >
+            <arg name="base_id" value="$(arg model_name)/base_link"/>
+            <arg name="odom_id" value="$(arg model_name)/odom"/>
+    </include>
+
+    </group>
+</launch>

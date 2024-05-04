@@ -1,0 +1,7 @@
+<launch>
+    <node name="controller_node1" pkg="volta_swarm" type="controller1.py"/>
+    <node name="controller_node2" pkg="volta_swarm" type="controller2.py"/>
+    <node name="controller_node3" pkg="volta_swarm" type="controller3.py"/>
+    <node name="controller_node4" pkg="volta_swarm" type="controller4.py"/>
+    <node name="goal_assigner" pkg="volta_swarm" type="goal_assign.py"/>
+</launch>

@@ -1,0 +1,9 @@
+<launch>
+    <node pkg="rosbag" type="play" name="rosbag" args="-l $(find pointnet_ros)/rviz/bags/kitti_2011_09_26_drive_0001_synced.bag" />
+    
+    <node pkg="pointnet_ros" type="pointnet_ros.py" name="PointNetRecognition"  output="screen" >
+    </node>
+
+    <node pkg="rviz" type="rviz" name="rviz" args="-d $(find pointnet_ros)/rviz/lidar.rviz" />
+
+</launch>
